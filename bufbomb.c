@@ -107,22 +107,22 @@ void test()
   entry_check(3);  /* Make sure entered this function properly */
   val = getbuf();
   if (val <= 40) {
-	variable_length = alloca(val);
+    variable_length = alloca(val);
   }
   entry_check(3);
   /* Check for corrupted stack */
   if (local != 0xdeadbeef) {
-	printf("Sabotaged!: the stack has been corrupted\n");
+    printf("Sabotaged!: the stack has been corrupted\n");
   }
   else if (val == cookie) {
-	printf("Boom!: getbuf returned 0x%llx\n", val);
-	if (local != 0xdeadbeef) {
-	  printf("Sabotaged!: the stack has been corrupted\n");
-	}
-	validate(3);
+    printf("Boom!: getbuf returned 0x%llx\n", val);
+    if (local != 0xdeadbeef) {
+      printf("Sabotaged!: the stack has been corrupted\n");
+    }
+    validate(3);
   }
   else {
-	printf("Dud: getbuf returned 0x%llx\n", val);
+    printf("Dud: getbuf returned 0x%llx\n", val);
   }
 }
 /* $end boom-c */
@@ -374,14 +374,14 @@ int main(int argc, char *argv[])
   char *m = memalign(NEW_STACK_SIZE, NEW_STACK_SIZE);
   uint64_t    new_rsp;
   if(mprotect(m, NEW_STACK_SIZE, PROT_READ|PROT_WRITE|PROT_EXEC) 
-!= 0) {
-       perror("Failure to set stack permissions\n");
-       exit(0);
-       }
+     != 0) {
+    perror("Failure to set stack permissions\n");
+    exit(0);
+  }
 
-   new_rsp = (uint64_t)m + NEW_STACK_SIZE - 128;
+  new_rsp = (uint64_t)m + NEW_STACK_SIZE - 128;
 
-   shift_stack_and_invoke_function(new_rsp, test_function);
+  shift_stack_and_invoke_function(new_rsp, test_function);
 
   signal(SIGSEGV, seghandler);
   signal(SIGBUS, bushandler);
@@ -391,49 +391,49 @@ int main(int argc, char *argv[])
 
 
   while ((c = getopt(argc, argv, "gt:u:")) != -1)
-	switch(c) {
-	case 'g': /* Hidden switch */
-	  grade = 1;
-	  quiet = 1;
-	  alarm_time = 1; /* Should get immediate response */
-	  break;
-	  /* 	case 'h': */
-	  /* 	    usage(argv[0]); */
-	  /* 	    break; */
-	  /* 	case 'q': /\* Disabled *\/ */
-	  /* 	    quiet = 1; */
-	  /* 	    break; */
-	  /* 	case 'n': */
-	  /* 	    nitro = 1; */
-	  /* 	    cnt = KABOOM_CNT; */
-	  /* 	    break; */
-	  /* 	case 'x': /\* Disabled *\/ */
-	  /* 	    hexformat = 1; */
-	  /* 	    break; */
-	case 't':
-	case 'u':
-	  team = strdup(optarg);
-	  printf("Username: %s\n", team);
-	  cookie = gencookie(team);
-	  printf("Cookie: 0x%llx\n", cookie);
-	  break;
-	  /* 	case 'f': /\* Disabled *\/ */
-	  /* 	    infile = fopen(optarg, "r"); */
-	  /* 	    if (!infile) { */
-	  /* 		printf("Can't open file: %s\n", optarg); */
-	  /* 		usage(argv[0]); */
-	  /* 	    } */
-	  /* 	    break; */
-	  /* 	case 's': /\* automatically submit solution via email *\/ */
-	  /* 	    submit = 1; */
-	  /* 	    break; */
-	default:
-	  usage(argv[0]);
-	}
+    switch(c) {
+    case 'g': /* Hidden switch */
+      grade = 1;
+      quiet = 1;
+      alarm_time = 1; /* Should get immediate response */
+      break;
+      /* 	case 'h': */
+      /* 	    usage(argv[0]); */
+      /* 	    break; */
+      /* 	case 'q': /\* Disabled *\/ */
+      /* 	    quiet = 1; */
+      /* 	    break; */
+      /* 	case 'n': */
+      /* 	    nitro = 1; */
+      /* 	    cnt = KABOOM_CNT; */
+      /* 	    break; */
+      /* 	case 'x': /\* Disabled *\/ */
+      /* 	    hexformat = 1; */
+      /* 	    break; */
+    case 't':
+    case 'u':
+      team = strdup(optarg);
+      printf("Username: %s\n", team);
+      cookie = gencookie(team);
+      printf("Cookie: 0x%llx\n", cookie);
+      break;
+      /* 	case 'f': /\* Disabled *\/ */
+      /* 	    infile = fopen(optarg, "r"); */
+      /* 	    if (!infile) { */
+      /* 		printf("Can't open file: %s\n", optarg); */
+      /* 		usage(argv[0]); */
+      /* 	    } */
+      /* 	    break; */
+      /* 	case 's': /\* automatically submit solution via email *\/ */
+      /* 	    submit = 1; */
+      /* 	    break; */
+    default:
+      usage(argv[0]);
+    }
 
   if (!team) {
-	printf("You must include a username with -u\n");
-	usage(argv[0]);
+    printf("You must include a username with -u\n");
+    usage(argv[0]);
   }
 
   srandom(cookie);
@@ -442,16 +442,16 @@ int main(int argc, char *argv[])
   /* Set up set of stack offsets */
   offsets = (int *) calloc(cnt, sizeof(int));
   for (i = 0; i < cnt-2; i++)
-	offsets[i] = random() & 0x38;
+    offsets[i] = random() & 0x38;
   if  (cnt >= 2)
-	offsets[cnt-2] = 0x38;
+    offsets[cnt-2] = 0x38;
   offsets[cnt-1] = 0;
 
   /* Set up time out condition */
   alarm(alarm_time);
 
   for (i = 0; i < cnt; i++)
-	launch(nitro, offsets[i]+cookie_tweak);
+    launch(nitro, offsets[i]+cookie_tweak);
 
   return 0;
 }
