@@ -13,6 +13,55 @@ https://github.com/NagleZhang/Binary-Bomb.git
 ### 第一关 test -> smoke
 第一关的二进制程序叫做 bufbomb 
 我们可以阅读 bufbomb.c 这个程序，会发现里面有几个函数。test() / smoke() / getbuf().
+```
+void test()
+{
+  unsigned long long val;
+  volatile unsigned long long local = 0xdeadbeef;
+  char* variable_length;
+  entry_check(3);  /* Make sure entered this function properly */
+  val = getbuf();
+  if (val <= 40) {
+    variable_length = alloca(val);
+  }
+  entry_check(3);
+  /* Check for corrupted stack */
+  if (local != 0xdeadbeef) {
+    printf("Sabotaged!: the stack has been corrupted\n");
+  }
+  else if (val == cookie) {
+    printf("Boom!: getbuf returned 0x%llx\n", val);
+    if (local != 0xdeadbeef) {
+      printf("Sabotaged!: the stack has been corrupted\n");
+    }
+    validate(3);
+  }
+  else {
+    printf("Dud: getbuf returned 0x%llx\n", val);
+  }
+}
+unsigned long long getbuf()
+{
+  char buf[36];
+  volatile char* variable_length;
+  int i;
+  unsigned long long val = (unsigned long long)Gets(buf);
+  variable_length = alloca((val % 40) < 36 ? 36 : val % 40);
+  for(i = 0; i < 36; i++)
+  {
+	variable_length[i] = buf[i];
+  }
+  return val % 40;
+}
+void smoke()
+{
+  entry_check(0);  /* Make sure entered this function properly */
+  printf("Smoke!: You called smoke()\n");
+  validate(0);
+  exit(0);
+}
+```
+
 test 会调用 getbuf。然后进行返回。 
 我们的目的是， 在getbuf 完成后，不返回test，而是直接跳转到 smoke()
 
