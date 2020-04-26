@@ -8,7 +8,18 @@ https://github.com/NagleZhang/Binary-Bomb.git
 ## 实验目的
 了解栈的工作方式
 
+## 实验条件 
+1. https://github.com/NagleZhang/cse-buffer-overflow
+2. git 
+3. gdb
+4. objdump
+5. linux
+
 ## 实验本身
+我们要做什么？
+1. 阅读 bufbomb.c, 理解调用逻辑。
+2. 将 bufbomb 反汇编。了解在堆栈中程序的状态。
+3. hack 正在运行的程序， 通过堆栈溢出的方式，做一些原程序意愿的事情.
 
 ### 第一关 test -> smoke
 第一关的二进制程序叫做 bufbomb 
