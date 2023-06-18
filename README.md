@@ -40,7 +40,7 @@ https://github.com/NagleZhang/Binary-Bomb.git
 
 - 其他关卡本身需要的东西不一一列举. 
 
--   
+
 
 ### 第零关 test $\rightarrow$ smoke 栈溢出攻击
 
@@ -63,6 +63,10 @@ test 会调用 getbuf。然后进行返回。
 从而执行自定义的汇编代码(修改 global_value), 并且再次返回到 bang() 函数. 通过其对比逻辑. 
 
 比较有用的命令: `x \20i $address` 可以用来验证自己写入到栈当中的代码是否正确. 
+
+
+
+> 该试验其实是可以快速通过, 因为 gdb 当中有一个 command 叫做 set, 可以通过 set 命令来对 global_value 进行修改, 直接省去写汇编的过程. 不过, 也就失去了学习在栈上执行代码的乐趣.(打破规则的乐趣?)
 
 
 
