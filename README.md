@@ -42,7 +42,7 @@ https://github.com/NagleZhang/Binary-Bomb.git
 
 
 
-### 第零关 test $\rightarrow$ smoke 栈溢出攻击
+## 第零关 test $\rightarrow$ smoke 栈溢出攻击
 
 第零关的二进制程序叫做 bufbomb 
 我们可以阅读 bufbomb.c 这个程序，会发现里面有几个函数。test() / smoke() / getbuf().
@@ -55,6 +55,8 @@ test 会调用 getbuf。然后进行返回。
 ## 第一关 test() $\rightarrow$ fizz() 覆盖参数
 
 这一关卡和第二关本身无太大区别, 多了几个参数, 所以解决方案也一致. 无非是在 stack 当把参数也进行覆盖操作. 
+
+
 
 ## 第二关 test() $\rightarrow$ bang() 在栈上执行代码
 
