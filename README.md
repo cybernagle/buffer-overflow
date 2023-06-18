@@ -1,18 +1,24 @@
-# cse-buffer-overflow
+# Buffer Overflow 缓冲区溢出
 
 Buffer overflow lab address: https://courses.cs.washington.edu/courses/cse351/17sp/lab-3.html
 
+ 
+
 ## 基本知识
+
+你需要知道 gdb 当中的各个指令是如何使用的, x86 的体系当中, 几个常用的指令以及常用的寄存器, 如果你不熟悉, 可以参考下面的 repo 以及配套实验, 在做中学.  
 
 https://github.com/NagleZhang/Binary-Bomb.git
 
+
+
 ## 实验目的
 
-了解栈的工作方式
+完成这套实验, 你将熟悉栈的基本工作方式, 以及了解栈的方式会如何在攻击中被加以利用. 
 
 ## 实验条件
 
-1. https://github.com/NagleZhang/cse-buffer-overflow
+1. 源代码: https://github.com/NagleZhang/buffer-overflow 
 2. git 
 3. gdb
 4. objdump
