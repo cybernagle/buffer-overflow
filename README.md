@@ -48,7 +48,7 @@ https://github.com/NagleZhang/Binary-Bomb.git
 
 
 
-## 第零关 test $\rightarrow$ smoke 栈溢出攻击
+## 第零关 test $\rightarrow$ smoke 缓冲区溢出攻击
 
 第零关的二进制程序叫做 bufbomb 
 我们可以阅读 bufbomb.c 这个程序，会发现里面有几个函数。test() / smoke() / getbuf().
